@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace learn_it_terminal {
     public class SQLConnector {
@@ -26,6 +28,32 @@ namespace learn_it_terminal {
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+
+        public List<string> GetWords(){
+            
+            string commandText = "SELECT * FROM Words";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(commandText, connection);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    List<string> words = new List<string>();
+                    while(reader.Read()){
+                        words.Add((string)reader[0]);
+                    }
+                    return words;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return new List<string>();
                 }
             }
         }
