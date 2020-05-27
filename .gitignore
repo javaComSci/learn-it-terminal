@@ -1,1 +1,2 @@
-/bin/*
+/Backend/bin/*
+/frontend/node_modules/*
