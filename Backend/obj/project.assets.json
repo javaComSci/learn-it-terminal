@@ -12077,11 +12077,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/indhu/Documents/learn-it/Backend/Backend.csproj",
+      "projectUniqueName": "/Users/indhu/Documents/learn-it-terminal/Backend/Backend.csproj",
       "projectName": "Backend",
-      "projectPath": "/Users/indhu/Documents/learn-it/Backend/Backend.csproj",
+      "projectPath": "/Users/indhu/Documents/learn-it-terminal/Backend/Backend.csproj",
       "packagesPath": "/Users/indhu/.nuget/packages/",
-      "outputPath": "/Users/indhu/Documents/learn-it/Backend/obj/",
+      "outputPath": "/Users/indhu/Documents/learn-it-terminal/Backend/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"

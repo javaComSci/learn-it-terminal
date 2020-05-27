@@ -12,3 +12,17 @@
 /Users/indhu/Documents/learn-it/Backend/obj/Debug/netcoreapp2.2/Backend.RazorTargetAssemblyInfo.cache
 /Users/indhu/Documents/learn-it/Backend/obj/Debug/netcoreapp2.2/Backend.dll
 /Users/indhu/Documents/learn-it/Backend/obj/Debug/netcoreapp2.2/Backend.pdb
+/Users/indhu/Documents/learn-it-terminal/Backend/bin/Debug/netcoreapp2.2/Backend.deps.json
+/Users/indhu/Documents/learn-it-terminal/Backend/bin/Debug/netcoreapp2.2/Backend.runtimeconfig.json
+/Users/indhu/Documents/learn-it-terminal/Backend/bin/Debug/netcoreapp2.2/Backend.runtimeconfig.dev.json
+/Users/indhu/Documents/learn-it-terminal/Backend/bin/Debug/netcoreapp2.2/Backend.dll
+/Users/indhu/Documents/learn-it-terminal/Backend/bin/Debug/netcoreapp2.2/Backend.pdb
+/Users/indhu/Documents/learn-it-terminal/Backend/obj/Debug/netcoreapp2.2/Backend.csprojAssemblyReference.cache
+/Users/indhu/Documents/learn-it-terminal/Backend/obj/Debug/netcoreapp2.2/Backend.csproj.CoreCompileInputs.cache
+/Users/indhu/Documents/learn-it-terminal/Backend/obj/Debug/netcoreapp2.2/Backend.RazorAssemblyInfo.cache
+/Users/indhu/Documents/learn-it-terminal/Backend/obj/Debug/netcoreapp2.2/Backend.RazorAssemblyInfo.cs
+/Users/indhu/Documents/learn-it-terminal/Backend/obj/Debug/netcoreapp2.2/Backend.AssemblyInfoInputs.cache
+/Users/indhu/Documents/learn-it-terminal/Backend/obj/Debug/netcoreapp2.2/Backend.AssemblyInfo.cs
+/Users/indhu/Documents/learn-it-terminal/Backend/obj/Debug/netcoreapp2.2/Backend.RazorTargetAssemblyInfo.cache
+/Users/indhu/Documents/learn-it-terminal/Backend/obj/Debug/netcoreapp2.2/Backend.dll
+/Users/indhu/Documents/learn-it-terminal/Backend/obj/Debug/netcoreapp2.2/Backend.pdb
