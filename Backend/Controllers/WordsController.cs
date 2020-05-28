@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Backend.Models;
 
 namespace Backend.Controllers
 {
@@ -28,9 +29,9 @@ namespace Backend.Controllers
 
         // PUT api/words
         [HttpPut]
-        public void Put([FromBody] string fileName) {
+        public void Put([FromBody] FileInfo fileinfo) {
             SQLConnector connector = new SQLConnector();
-            var lines = System.IO.File.ReadLines(fileName);
+            var lines = System.IO.File.ReadLines(fileinfo.filename);
             foreach(var line in lines) {
                 connector.PutWord(line.Trim());
             }

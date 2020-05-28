@@ -9,17 +9,29 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function ImportWordDialog() {
   const [open, setOpen] = React.useState(false);
+  const [textInputRef, setTextInputRef] = React.useState("");
 
   const handleClickOpen = () => {
-        setOpen(true);
+      setOpen(true);
   };
 
   const handleClose = () => {
-        setOpen(false);
+      setOpen(false);
   };
 
   const handleImportClose = () => {
-        setOpen(false);
+      console.log(textInputRef.value);
+      fetch("http://localhost:5000/api/words", {
+        method: "PUT",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fileName: textInputRef.value
+        })
+      });
+      setOpen(false);
   }
 
   return (
@@ -34,6 +46,7 @@ export default function ImportWordDialog() {
             Enter name of file to import words from
           </DialogContentText>
           <TextField
+            inputRef={ref => setTextInputRef(ref)}
             autoFocus
             margin="dense"
             fullWidth
