@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { ReactMic } from 'react-mic';
+var btoa = require('btoa');
 
 export default class TestBox extends Component {
     constructor(props) {
@@ -39,17 +40,29 @@ export default class TestBox extends Component {
 
 
     onData = (recordedBlob) => {
-        console.log("RECORDING IS: " + recordedBlob);
+        console.log("RECORDING!");
     }
-     
 
     onStop = (recordedBlob) => {
         console.log("RECORDED IS: " + recordedBlob);
-        this.setState({
-            recording: recordedBlob
-        })
+        console.log(recordedBlob)
+        var reader = new FileReader();
+        reader.readAsDataURL(recordedBlob.blob); 
+        reader.onloadend = function() {
+            var base64data = reader.result;    
+            console.log(base64data);
+            fetch("http://localhost:5000/api/definition", {
+                method: "PUT",
+                headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    definitionaudio: base64data
+                })
+            });
+        }
     }
-
 
     render() {
         let testButton = (<div>
