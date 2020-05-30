@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,11 @@ namespace Backend.Controllers
         // PUT api/definition
         [HttpPut]
         public void Put([FromBody] DefinitionInfo definitioninfo) {
-           Console.WriteLine("RECIEVED AUDIO");
+           string audioFile = definitioninfo.definitionaudio;
+           string trimmedAudio = audioFile.Substring(audioFile.LastIndexOf(',') + 1);
+           Byte[] bytes = Convert.FromBase64String(trimmedAudio);
+           string tempPath = "tempaudio.webm";
+           System.IO.File.WriteAllBytes(tempPath, bytes);
         }
     }
 }

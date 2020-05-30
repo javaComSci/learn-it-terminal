@@ -96,7 +96,7 @@ export default class TestBox extends Component {
                                     style={{display: "inline-block", width: 20}}
                                     record={this.state.record}
                                     className="sound-wave"
-                                    mimeType="audio/wav"
+                                    mimeType="audio/mp3"
                                     onStop={this.onStop}
                                     onData={this.onData}
                                     strokeColor="#000000"
