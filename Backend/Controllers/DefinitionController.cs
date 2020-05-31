@@ -16,17 +16,12 @@ namespace Backend.Controllers
         [HttpPut]
         public void Put([FromBody] DefinitionInfo definitioninfo) {
 
-            // convert from base64 encoded to audio file
+            // modify base 64 encoding
             string audioFile = definitioninfo.definitionaudio;
             string trimmedAudio = audioFile.Substring(audioFile.LastIndexOf(',') + 1);
-            Byte[] bytes = Convert.FromBase64String(trimmedAudio);
-            string tempPath = "tempaudio.webm";
-            System.IO.File.WriteAllBytes(tempPath, bytes);
 
-            // speech recognition engine
-
-
-
+            // get information from speech recognization engine
+            
 
         }
     }

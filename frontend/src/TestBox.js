@@ -6,6 +6,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { ReactMic } from 'react-mic';
 var btoa = require('btoa');
+const MicRecorder = require('mic-recorder-to-mp3');
+
+const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
 export default class TestBox extends Component {
     constructor(props) {
@@ -26,42 +29,34 @@ export default class TestBox extends Component {
     }
 
     startRecord = () => {
-        this.setState({
-            record: true
-        });
+        Mp3Recorder.start().then(() => this.setState({record: true})).catch((e) => console.log(e));
     }
 
 
     stopRecord = () => {
-        this.setState({
-            record: false
-        });
-    }
-
-
-    onData = (recordedBlob) => {
-        console.log("RECORDING!");
-    }
-
-    onStop = (recordedBlob) => {
-        console.log("RECORDED IS: " + recordedBlob);
-        console.log(recordedBlob)
-        var reader = new FileReader();
-        reader.readAsDataURL(recordedBlob.blob); 
-        reader.onloadend = function() {
-            var base64data = reader.result;    
-            console.log(base64data);
-            fetch("http://localhost:5000/api/definition", {
-                method: "PUT",
-                headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    definitionaudio: base64data
-                })
-            });
-        }
+       Mp3Recorder.stop().getMp3()
+       .then(([buffer, blob]) => {
+        const file = new File(buffer, 'tempaudio.mp3', {
+            type: blob.type
+          });
+         
+          var reader = new FileReader();
+          reader.readAsDataURL(file); 
+          reader.onloadend = function() {
+              var base64data = reader.result;    
+              console.log(base64data);
+              fetch("http://localhost:5000/api/definition", {
+                  method: "PUT",
+                  headers: {
+                  "Accept": "application/json",
+                  "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                      definitionaudio: base64data
+                  })
+              })
+          }
+      }).then(() => this.setState({record: false})).catch((e) => console.log(e));
     }
 
     render() {
@@ -79,7 +74,7 @@ export default class TestBox extends Component {
         } else {
             return (
                 <div style={{textAlign: "center", padding: 20}}>
-                    <Card style={{ display: "inline-block", width: "41%", boxShadow: '0 3px 2px 2px rgba(0, 0, 135, .3)', borderRadius: 3}}>
+                    <Card style={{ textAlign: "center", display: "inline-block", width: "41%", boxShadow: '0 3px 2px 2px rgba(0, 0, 135, .3)', borderRadius: 3}}>
                         <CardContent>
                             <Typography style={{fontSize: 14}} color="textSecondary">
                                 Definition of:
@@ -91,16 +86,8 @@ export default class TestBox extends Component {
                                 <Button size="small" onClick={this.startRecord}>Start Recording</Button>
                                 <Button size="small" onClick={this.stopRecord}>Stop Recording</Button>
                             </CardActions>
-                            <div style={{width: "50%", textAlign: "center"}}>
-                                <ReactMic
-                                    style={{display: "inline-block", width: 20}}
-                                    record={this.state.record}
-                                    className="sound-wave"
-                                    mimeType="audio/mp3"
-                                    onStop={this.onStop}
-                                    onData={this.onData}
-                                    strokeColor="#000000"
-                                    backgroundColor="#c5cae9" />
+                            <div style={{width: "50%", textAlign: "center", paddingLeft: "25%"}}>
+                                {this.state.record ? "Recording" : "Not recording"}
                             </div>
                         </CardContent>
                     </Card>
