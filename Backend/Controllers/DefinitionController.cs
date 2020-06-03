@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Backend.Models;
 using System.Diagnostics;
-
+using Backend.TextMatching;
 
 namespace Backend.Controllers
 {
@@ -15,8 +15,11 @@ namespace Backend.Controllers
     public class DefinitionController : ControllerBase {
         // PUT api/definition
         [HttpPut]
-        public void Put([FromBody] DefinitionInfo definitioninfo) {
+        public IActionResult Put([FromBody] DefinitionInfo definitioninfo) {
 
+            // get the word
+            string word = definitioninfo.word;
+            
             // modify base 64 encoding
             string audioFile = definitioninfo.definitionaudio;
             string trimmedAudio = audioFile.Substring(audioFile.LastIndexOf(',') + 1);
@@ -38,10 +41,11 @@ namespace Backend.Controllers
                         convertedText = result.Substring(result.LastIndexOf(":") + 1);
                         Console.WriteLine("CONVERTED TEXT " + result);
                     }
+                    MatchText textMatcher = new MatchText(word, result);
+                    bool correct = textMatcher.Match();
+                    return Ok(correct);
                 }
             }
         }
-
-
     }
 }

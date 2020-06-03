@@ -8,5 +8,6 @@ namespace Backend.Models
 {
     public class DefinitionInfo {
         public string definitionaudio { get; set; }
+        public string word { get; set; }
     }
 }

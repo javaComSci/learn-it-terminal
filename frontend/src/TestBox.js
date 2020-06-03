@@ -52,6 +52,7 @@ export default class TestBox extends Component {
                   "Content-Type": "application/json",
                   },
                   body: JSON.stringify({
+                      word: this.state.wordsList[this.state.currentIndex],
                       definitionaudio: base64data
                   })
               })
