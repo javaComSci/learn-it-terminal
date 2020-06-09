@@ -38,7 +38,8 @@ export default class TestBox extends Component {
        var index = this.state.currentIndex;
        var oldListLength = list.length;
        var that = this;
-       list.splice(index, 1)
+       list.splice(index, 1);
+       console.log("WORD LOOKING " + that.state.wordsList[that.state.currentIndex]);
        Mp3Recorder.stop().getMp3()
        .then(([buffer, blob]) => {
         const file = new File(buffer, 'tempaudio.mp3', {
@@ -57,7 +58,7 @@ export default class TestBox extends Component {
                   "Content-Type": "application/json",
                   },
                   body: JSON.stringify({
-                      word: list[index],
+                      word: that.state.wordsList[that.state.currentIndex],
                       definitionaudio: base64data
                   })
               }).then(response => response.json()
