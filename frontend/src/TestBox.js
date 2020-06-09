@@ -18,7 +18,7 @@ export default class TestBox extends Component {
             record: false,
             wordsList: [],
             currentIndex: 0,
-            recordedBlob: null
+            recordedBlob: null,
         };
     }
 
@@ -34,6 +34,11 @@ export default class TestBox extends Component {
 
 
     stopRecord = () => {
+       var list = [...this.state.wordsList];
+       var index = this.state.currentIndex;
+       var oldListLength = list.length;
+       var that = this;
+       list.splice(index, 1)
        Mp3Recorder.stop().getMp3()
        .then(([buffer, blob]) => {
         const file = new File(buffer, 'tempaudio.mp3', {
@@ -52,15 +57,32 @@ export default class TestBox extends Component {
                   "Content-Type": "application/json",
                   },
                   body: JSON.stringify({
-                      word: this.state.wordsList[this.state.currentIndex],
+                      word: list[index],
                       definitionaudio: base64data
                   })
-              })
+              }).then(response => response.json()
+                    .then(res => ({data: res})))
+                        .then((data) => data.data ?
+                                that.setState({
+                                    record: false, 
+                                    correct: data.data, 
+                                    wordsList: list,
+                                    currentIndex: index % (list.length)
+                                 }) :
+                                 that.setState({
+                                    record: false, 
+                                    correct: data.data, 
+                                    currentIndex: (index + 1) % that.state.wordsList.length 
+                                 })
+                        )
           }
-      }).then(() => this.setState({record: false})).catch((e) => console.log(e));
+      }).catch((e) => console.log(e));
     }
 
     render() {
+        console.log("CORRECT " + this.state.correct)
+        console.log("CURRENT INDEX " + this.state.currentIndex)
+        console.log(this.state.wordsList)
         let testButton = (<div>
             <Button variant="outlined" color="primary" onClick={this.startTest}>
                 Test Words
@@ -70,6 +92,13 @@ export default class TestBox extends Component {
             return (
                 <div style={{padding: 20}}>
                     {testButton}
+                </div>
+            )
+        } else if (this.state.wordsList.length == 0) {
+            return (
+                <div style={{padding: 20}}>
+                    {testButton}
+                    Test Completed!
                 </div>
             )
         } else {
